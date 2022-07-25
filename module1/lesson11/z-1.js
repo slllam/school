@@ -8,7 +8,8 @@ function getDateFormat(date, separator) {
 	const yyyy = date.getFullYear();
 	let mm = date.getMonth() + 1;
 	mm = ((mm < 10) ? `0${mm}` : mm); //дописываем ведущий 0
-	const dd = date.getDate();	
+	let dd = date.getDate();	
+	dd= ((dd < 10) ? `0${dd}` : dd); //дописываем ведущий 0
 return result = String(dd + separator + mm + separator + yyyy); 
 };
 
