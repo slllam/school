@@ -1,6 +1,6 @@
 // Lesson 14
 
-//Вариант №1
+//Вариант №1 c innerHTML
 document.body.innerHTML = '<form class="create-user-form"></form>';
 const contentInForm = document.body.querySelector('.create-user-form');
 const addContent1 = '<label>Имя<input type="text" name="userName" placeholder="Введите ваше имя" /></label>';
@@ -8,7 +8,7 @@ const addContent2 = '<label>Пароль<input type="password" name="password" p
 const addContent3 = '<button type="submit">Подтвердить</button>';
 contentInForm.innerHTML = addContent1 + addContent2 + addContent3;
 
-//Вариант №2
+//Вариант №2 с document.createElement
 const newForm = document.createElement("form");
 newForm.className = 'create-user-form';
 document.body.appendChild(newForm);
