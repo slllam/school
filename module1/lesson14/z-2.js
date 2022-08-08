@@ -55,7 +55,7 @@ tasks.forEach(element => {
 
     const TaskItemButtonDelete = document.createElement("button");
     TaskItemButtonDelete.className = 'task-item__delete-button default-button delete-button';
-    TaskItemButtonDelete.dataset.deleteTaskId = 'task-item__delete-button';
+    TaskItemButtonDelete.dataset.deleteTaskId = element.id;
     TaskItemButtonDelete.innerText = 'Удалить';
     TaskItemMainContainer.appendChild(TaskItemButtonDelete); 
 })
