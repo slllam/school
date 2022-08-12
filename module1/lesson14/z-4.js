@@ -73,6 +73,7 @@ function delErrSpan() {
 };
 
 function createErrSpan (text){
+  delErrSpan(); //сначала проверяем, создано ли ранее сообщение об ошибке, если создано, то удаляем его.
   const taskForm = document.body.querySelector('.create-task-block');
   const errorSpan = document.createElement("span");  
   errorSpan.className = 'error-message-block';
@@ -87,14 +88,12 @@ newTaskForm.addEventListener("submit", (event) => {
   let err = false;
   if (textToAdd.length == 0) {    //если текст пустой:
     err = true;
-    delErrSpan();
     createErrSpan ('Название задачи не должно быть пустым');
     }
   else {                         // если такая задача уже есть
     tasks.forEach(element => {
       if (element.text === textToAdd) {
         err = true;
-        delErrSpan();
         createErrSpan ('Задача с таким названием уже существует.');
         return;
         } 
