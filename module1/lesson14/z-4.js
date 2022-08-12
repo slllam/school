@@ -19,10 +19,10 @@ const tasks = [
   ];
   
 tasks.forEach(element => {
-    createNewTask(element.id, false, element.text );
+    createNewTask(element.id, element.text );
 }) 
 
-function createNewTask(id, completed, text) {
+function createNewTask(id, text) {
 
   const tasksList = document.body.querySelector('.tasks-list');
 
@@ -64,52 +64,49 @@ function createNewTask(id, completed, text) {
   TaskItemButtonDelete.innerText = 'Удалить';
   TaskItemMainContainer.appendChild(TaskItemButtonDelete);
 };
+
+function delErrSpan() {
+  const delErrSpan = document.body.querySelector('.error-message-block');
+  if (delErrSpan){
+    delErrSpan.remove();
+  }
+};
+
+function createErrSpan (text){
+  const taskForm = document.body.querySelector('.create-task-block');
+  const errorSpan = document.createElement("span");  
+  errorSpan.className = 'error-message-block';
+  errorSpan.textContent = text;
+  taskForm.appendChild(errorSpan);
+}
   
 const newTaskForm = document.querySelector('.create-task-block');
-
 newTaskForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const textToAdd = String(event.target.elements.taskName.value);
   let err = false;
- //если текст пустой:
-  if (textToAdd.length == 0) {
-    if (delErrSpan){
-      delErrSpan.remove();
-    }
-    const taskForm = document.body.querySelector('.create-task-block');
-    const errorSpan = document.createElement("span");  
-    errorSpan.className = 'error-message-block';
-    errorSpan.textContent = 'Название задачи не должно быть пустым';
-    taskForm.appendChild(errorSpan);
+  if (textToAdd.length == 0) {    //если текст пустой:
     err = true;
+    delErrSpan();
+    createErrSpan ('Название задачи не должно быть пустым');
     }
-  else {
+  else {                         // если такая задача уже есть
     tasks.forEach(element => {
       if (element.text === textToAdd) {
-        if (delErrSpan){
-          delErrSpan.remove();
-        }
-        const taskForm = document.body.querySelector('.create-task-block');
-        const errorSpan = document.createElement("span");  
-        errorSpan.className = 'error-message-block';
-        errorSpan.textContent = 'Задача с таким названием уже существует.';
-        taskForm.appendChild(errorSpan);
         err = true;
+        delErrSpan();
+        createErrSpan ('Задача с таким названием уже существует.');
         return;
         } 
       }) 
- // если задача действительно новая, то: 
   };
-  if (err === false) {
-    const delErrSpan = document.body.querySelector('.error-message-block');
-    if (delErrSpan){
-      delErrSpan.remove();
-    }
+  if (err === false) {    // если задача действительно новая, то: 
+    delErrSpan();
     tasks.push({
       id: Date.now(),
       completed: false,
       text: textToAdd   
     });
-     createNewTask(Date.now(), false, textToAdd );  
+     createNewTask(Date.now(), textToAdd );  
   }
 });
