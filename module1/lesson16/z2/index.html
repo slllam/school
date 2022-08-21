@@ -4,14 +4,30 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Promise + fetch</title>
-  <link rel="stylesheet" href="index.css"></link>
+  <link rel="stylesheet" href="index.css" />
+  <title>Работа с DOM</title>
 </head>
 <body>
-  <h1>Promise + fetch</h1>
-  <ol id="data-container">
-    <span id="loader" hidden>Loading...</span>
-  </ol>
-  <script src="promise.js"></script>
+  <div id="tasks">
+    <div class="tasks__wrapper">
+      <form class="create-task-block">
+        <input
+          name="taskName"
+          class="create-task-block__input default-text-input"
+          type="text"
+          placeholder="Создайте новую задачу"
+          value="Посмотреть урок по JavaScript"
+        >
+        <button
+          type="submit"
+          class="create-task-block__button default-button"
+        >
+          Создать
+        </button>
+      </form>
+      <div class="tasks-list"></div>
+    </div>
+  </div>
+  <script src="index.js"></script>
 </body>
 </html>
