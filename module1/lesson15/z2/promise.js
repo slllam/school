@@ -22,26 +22,23 @@ const hideLoader = () => {
     getLoader.style.display = "none";
 };
 
-const getUsersByIds = (users) => {
-    let usersList = [];
-    users.forEach((element) => {
-        usersList = users.map(element => fetch(`https://jsonplaceholder.typicode.com/users/${element}`));
-    });
-    Promise.all(usersList)
+const getUsersByIds = (idsArray) => {
+    showLoader();
+    Promise.all(idsArray.map(id => fetch(`https://jsonplaceholder.typicode.com/users/${id}`)))
         .then(responses => {
-            const results = [];
-            responses.forEach((element) => {
-                if (!element.ok) throw Error('Ошибка, не удается выполнить Fetch');
-                else results.push(element.json())
+            const resultArray = [];
+            responses.forEach((response) => {
+                if (!response.ok) throw Error('Ошибка, не удается выполнить Fetch');
+                else resultArray.push(response.json())
             });
-            console.log(results);
-            return Promise.all(results);             
+            // console.log(resultArray);
+            return Promise.all(resultArray);             
         })
-        .then(results => {
-            console.log(results);
-            outputUsers(results);
+        .then(resultArray => {
+            // console.log(resultArray);
+            outputUsers(resultArray);
         })
-        .catch((error) => {console.log('Error:', error)})
+        .catch((error) => console.log('Error:', error))
         .finally (() => {
             hideLoader();
             console.log('Fetching finished');            
